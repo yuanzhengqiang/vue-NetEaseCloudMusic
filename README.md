@@ -1,1 +1,1 @@
-# vue-NetEaseCloudMusic
+这是一个基于'Vue全家桶'的模仿网易云音乐的项目。
