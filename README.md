@@ -8,11 +8,13 @@
 
 
 <h2>后端部分</h2>
-后端API接口<a href="https://binaryify.github.io/NeteaseCloudMusicApi/#/">NeteaseCloudMusicApi</a>；
+后端API接口<a href="https://binaryify.github.io/NeteaseCloudMusicApi/#/">NeteaseCloudMusicApi</a>
 
 <h2>运行</h2>
 分别进入两个文件夹执行
 <pre>$ npm install
 $ npm run start
 </pre>
+
+运行过一次之后再次运行可修改run.bat中的文件路径，然后点击run.bat即可。
 
