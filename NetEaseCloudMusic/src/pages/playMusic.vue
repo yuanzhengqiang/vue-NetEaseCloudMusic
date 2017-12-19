@@ -9,9 +9,9 @@
 				div.song-head-user(v-bind:class="{'animation-pause': !isPause , 'animation-rotate': !isEnd}")
 					span.img-head(v-bind:style="{ backgroundImage : picUrl }")
 				span.pause(v-bind:class="{hide: isPause }")
-			
+
 			div.lyrics
-				h2.songs-info {{song}} - 
+				h2.songs-info {{song}} -
 					span.author {{author}}
 				div.lrc-info
 					div#lrc-list
@@ -24,14 +24,14 @@
 				h3.headline(v-bind:class="{hide: hotCommentShow }") 精彩评论
 				section(v-bind:class="{hide: hotCommentShow }")
 					div.cell-comment( v-for="item in hotComments")
-						div.head-comment 
+						div.head-comment
 							img.img-head-comment(v-bind:src="item.userUrl")
 						div.user-info
 							div.user-info-comment
 								div.user-head-comment
 									label.name-comment {{item.name}}
 									span.title-comment {{item.time | getFormatTime}}
-								div.like-comment 
+								div.like-comment
 									label.like-count {{item.likeCount | formatCount}}
 									span.like-icon
 							div.content-comment {{item.comment}}
@@ -39,20 +39,20 @@
 				h3.headline(v-bind:class="{hide: commentShow }") 最新评论 {{newCommentsNum}}
 				section(v-bind:class="{hide: commentShow }")
 					div.cell-comment( v-for="item in newComments")
-						div.head-comment 
+						div.head-comment
 							img.img-head-comment(v-bind:src="item.userUrl")
 						div.user-info
 							div.user-info-comment
 								div.user-head-comment
 									label.name-comment {{item.name}}
 									span.title-comment {{item.time | getFormatTime}}
-								div.like-comment 
+								div.like-comment
 									label.like-count {{item.likeCount | formatCount}}
 									span.like-icon
 							div.content-comment {{item.comment}}
-				
+
 				div.more-comment(v-bind:class="{hide : commentShow }") 查看全部{{allCommentNum}}评论
-				
+
 </template>
 
 <script>
@@ -73,14 +73,15 @@ export default {
 			commentShow: false,
 			hotComments: [],//精彩评论
 			newComments: [],//最新评论
-			allCommentNum: ''
+			allCommentNum: '',
+			newCommentsNum: ''
 
 		}
 	},
 	created() {
 		let id = this.$route.params.id;
 		this.songUrl = `http://music.163.com/song/media/outer/url?id=${id}.mp3`
-		
+
 	},
 	mounted () {
 			this.getSongDetail();
@@ -125,7 +126,7 @@ export default {
 				}
 			})
 			.then(function (response) {
-				
+
 				let result = response.data.lrc;
 				if (result != '') {
 					let lrcArr = result.lyric.split("\n"),
@@ -141,7 +142,7 @@ export default {
 								msec = timeArr[2] | 0, // 毫秒
 								realMin = min * 60 + sec + '.' + msec; // 计算总秒数
 								lrc.lrctime = realMin;
-								
+
 						});
 						lrc.lrcVal = lrcArr[i].replace(/^(\[\d+\:\d+\.{1}\d+\])?/g, '');
 						if (lrc.lrcVal != '') {
@@ -230,7 +231,7 @@ export default {
 							if (ended) {
 								that.isEnd = true;
 							}
-							
+
 							if (showTimeD < 0.2) {
 								let num = 0;
 								if (i > 1) {
@@ -239,7 +240,7 @@ export default {
 								if (document.querySelectorAll('.highlightlrc').length == 1) {
 									document.querySelectorAll('.highlightlrc')[0].classList.remove('highlightlrc');
 								}
-								
+
 								document.querySelectorAll('.lrc-cell')[i].classList.add('highlightlrc');
 								document.querySelector('#lrc-list').style.transform = `translateY(-${num}px)`;
 							}
@@ -406,7 +407,7 @@ export default {
 			background: url(../assets/img/disc_default.png) no-repeat;
 			background-size: contain;
 
-			
+
 		}
 
 		.song-head-user {
@@ -422,7 +423,7 @@ export default {
 			background: url(../assets/img/disc_light-ip6.png) no-repeat;
     		background-size: contain;
 			z-index: 3;
-			
+
 
 			.img-head {
 				position: absolute;
@@ -436,7 +437,7 @@ export default {
     			max-height: 218px;
 				border-radius: 50%;
 				background-size: 100%;
-				
+
 			}
 		}
 
@@ -461,7 +462,7 @@ export default {
 			background: url(../assets/img/player.png) no-repeat;
 			background-size: contain;
 		}
-		
+
 	}
 
 .lyrics {
@@ -518,7 +519,7 @@ export default {
     height: 30px;
     padding-top: 10px;
     text-align: center;
-	
+
 	.up-icon {
 		display: inline-block;
 		width: 17px;
@@ -600,7 +601,7 @@ export default {
 				line-height: 1.5;
 
 				.name-comment {
-					display: block;	
+					display: block;
 					font-size: 14px;
 					color: hsla(0,0%,100%,.7);
 					line-height: 20px;
@@ -611,7 +612,7 @@ export default {
 				}
 
 				.title-comment {
-					display: block;	
+					display: block;
 					font-size: 9px;
 					color: #999;
 					overflow: hidden;
@@ -646,7 +647,7 @@ export default {
 					outline-color: transparent;
 					color: transparent;
 				}
-				
+
 			}
 		}
 	}
@@ -669,7 +670,7 @@ export default {
 
 
 @-webkit-keyframes rotate {
-	from { 
+	from {
 		-webkit-transform:rotate(0deg)
 	}
 	to {
