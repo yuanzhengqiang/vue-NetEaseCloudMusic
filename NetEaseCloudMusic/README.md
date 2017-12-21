@@ -1,4 +1,4 @@
-# mobile-music
+# NetEaseCloudMusic
 
 > A Vue.js project
 
