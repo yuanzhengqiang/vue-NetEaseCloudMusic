@@ -1,5 +1,5 @@
 <h2>项目简介</h2>
-这是一个基于Vue.JS的仿网易云移动端项目，采用VS Code开发;
+这是一个基于Vue.JS的仿网易云移动端项目，采用VS Code开发，请在Chrome中打开开发者工具查看;
 
 <h2>前端部分</h2>
 <p>前端UI: <strong>mint UI</strong></p>
