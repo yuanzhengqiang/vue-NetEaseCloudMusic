@@ -1,6 +1,6 @@
 <template lang="pug">
-	div#playListDetail(v-bind:class="{hide: !listShow }")
-		div.modal(v-bind:class="{hide : listShow }")
+	div#playListDetail
+		div.modal(v-show="listShow === false")
 			mt-spinner.middle-main( type="triple-bounce")
 		section.head
 			div.bg-head(v-bind:style="{backgroundImage: playListDes.backgroundImageUrl}")
@@ -33,8 +33,8 @@
 							span.title-song {{item.singerDes}}
 						div.play-song
 
-			h3(v-bind:class="{hide: hotCommentShow }") 精彩评论
-			section(v-bind:class="{hide: hotCommentShow }")
+			h3(v-show="hotCommentShow === true") 精彩评论
+			section(v-show="hotCommentShow === true")
 				div.cell-comment( v-for="item in hotComments")
 					div.head-comment 
 						img.img-head-comment(v-bind:src="item.userUrl")
@@ -48,8 +48,8 @@
 								span.like-icon
 						div.content-comment {{item.comment}}
 
-			h3(v-bind:class="{hide: commentShow }") 最新评论 {{newCommentsNum}}
-			section(v-bind:class="{hide: commentShow }")
+			h3(v-show="commentShow === true") 最新评论 {{newCommentsNum}}
+			section(v-show="commentShow === true")
 				div.cell-comment( v-for="item in newComments")
 					div.head-comment 
 						img.img-head-comment(v-bind:src="item.userUrl")
@@ -105,7 +105,6 @@ export default {
 			})
 			.then(function (response) {
 				let result = response.data.playlist;
-				console.log(result)
 				that.playListDes.playListName = result.name;
 				that.playListDes.description = '简介：' + result.description;
 				that.playListDes.playCount = result.playCount;
@@ -235,8 +234,7 @@ export default {
 		right: 0px;
 		bottom: 0px;
 		z-index: 10;
-		opacity: 0.5;
-		background-color: #000;
+		background-color: #fff;
 
 		.middle-main {
 			position: absolute;
@@ -247,8 +245,6 @@ export default {
 		}
 	}
 }
-
-
 
 .head {
 	position: relative;
@@ -284,7 +280,6 @@ export default {
 			z-index: 1;
 		}
 	}
-	
 	
 	.lt-head {
 		position: relative;

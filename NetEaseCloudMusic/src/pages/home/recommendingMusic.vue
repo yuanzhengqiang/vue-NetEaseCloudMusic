@@ -2,18 +2,19 @@
 	div#recommendingMusic
 		h2.headline 推荐歌单
 		div.content
-			mt-spinner.middle( type="triple-bounce" v-bind:class="{hide : playListShow }")
-			ul.ul-box(v-bind:class="{hide: !playListShow }")
+			mt-spinner.middle( type="triple-bounce" v-show="playListShow === false")
+			ul.ul-box(v-show="playListShow === true")
 				li.li-box(v-for="item in playList")
-					router-link.no-decoration( :to="{name: 'playListDetail', params: { id: item.id, name: item.name, picUrl: item.picUrl, playCount: item.playCount }}")
+					//- router-link.no-decoration( :to="{name: 'playListDetail', params: { id: item.id, name: item.name, picUrl: item.picUrl, playCount: item.playCount }}")
+					span.no-decoration(v-on:click='turnListDetail(item)')
 						img.img-box(v-bind:src="item.picUrl")
 						p.p-box {{item.name}}
 						span.span-box {{item.playCount | formatCount}}
 
 		h2.headline 最新音乐
 		div.content
-			mt-spinner.middle( type="triple-bounce" v-bind:class="{hide : songListShow }")
-			section.cell-box(v-bind:class="{hide: !songListShow }")
+			mt-spinner.middle( type="triple-bounce" v-show="songListShow === false")
+			section.cell-box( v-show="songListShow === true")
 				div.cell-songs( v-for="item in songList")
 					div.info-songs(v-on:click='turnDetail(item.id)')
 						div.des-song
@@ -111,6 +112,12 @@ export default {
 		 */
 		turnDetail(id) {
 			this.$router.push({ name: 'playMusic', params: { id: id }})
+		},
+		/**@augments
+		 * 跳转歌单详情页
+		 */
+		turnListDetail(item) {
+			this.$router.push({ name: 'playListDetail', params: {  id: item.id, name: item.name, picUrl: item.picUrl, playCount: item.playCount }})
 		}
 	},
 	filters: {

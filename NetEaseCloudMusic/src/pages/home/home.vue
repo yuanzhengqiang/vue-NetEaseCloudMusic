@@ -70,9 +70,6 @@ export default {
 	position: relative;
 }
 
-/**
-
-*/
 .header {
 	$size : 30px;//变量
 

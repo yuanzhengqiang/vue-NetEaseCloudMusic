@@ -3,12 +3,12 @@
 		
 		header.headline
 			div.icon-head
-			label.updata-head 更新日期：12月7日
+			label.updata-head 更新日期：{{updataDate}}
 
 		section.songList
-			div.modal(v-bind:class="{hide : listShow }")
+			div.modal(v-show="listShow === false")
 				mt-spinner.middle-main( type="triple-bounce")
-			div.cell-songs(v-for="(item, index) in songList" v-bind:class="{hide : !listShow }")
+			div.cell-songs(v-for="(item, index) in songList" v-show="listShow === true")
 					div.index-songs.red-index( v-if="index < 3" v-on:click='turnDetail(item.id)') {{index+1}}
 					div.index-songs(v-else v-on:click='turnDetail(item.id)') {{index+1}}
 					div.info-songs(v-on:click='turnDetail(item.id)')
@@ -16,19 +16,20 @@
 							label.name-song {{item.name}}
 							span.title-song {{item.singerDes}}
 						div.play-song
-			div.cell-songs(v-bind:class="{hide : !listShow }") 查看完整榜单 >
+			div.cell-songs(v-show="listShow === true") 查看完整榜单 >
 
 </template>
 
 <script>
-import  { getFormatDate  } from '../../assets/js/time'
+import  { getFullDate  } from '../../assets/js/time'
 export default {
 	name: 'hotSongList',
 	data () {
 		return {
 			songList: [],//歌曲列表
 			listShow: false,
-			listId: ''
+			listId: '',
+			updataDate: ''
 		}
 	},
 	created() {
@@ -47,7 +48,7 @@ export default {
 				}
 			})
 			.then(function (response) {
-				console.log(response.data.result)
+				that.updataDate = getFullDate(response.data.result.trackNumberUpdateTime);
 				let id = response.data.result.id;
 				if (id != null && id != '') {
 					that.listId = id;
@@ -71,7 +72,6 @@ export default {
 				}
 			})
 			.then(function (response) {
-				console.log(response.data)
 				let songsList = response.data.playlist.tracks,
 					len = songsList.length > 20 ? 20 : songsList.length;
 				
@@ -86,7 +86,7 @@ export default {
 				that.listShow = true;
 			})
 			.catch(function (error) {
-				console.log(JSON.stringify(error) + '11111');
+				console.log(JSON.stringify(error));
 			});
 		},
 		/**@augments
@@ -212,15 +212,12 @@ export default {
 			text-align: left;
 			border-bottom: 1px solid rgba(221,221,221,.5);
 
-			
-
 			.des-song {
 				-webkit-box-flex: 1;
 				flex: 1 1 auto;
 				padding: 6px 0;
 				line-height: 1.5;
 				
-
 				.name-song {
 					display: block;	
 					overflow: hidden;
@@ -262,8 +259,6 @@ export default {
 				background-size: 25px 25px;
 				 
 			}
-
-
 		}
 	}
 </style>

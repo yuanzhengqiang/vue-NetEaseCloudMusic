@@ -8,7 +8,7 @@
 				div.song-head-default
 				div.song-head-user(v-bind:class="{'animation-pause': !isPause , 'animation-rotate': !isEnd}")
 					span.img-head(v-bind:style="{ backgroundImage : picUrl }")
-				span.pause(v-bind:class="{hide: isPause }")
+				span.pause(v-show="isPause === false")
 
 			div.lyrics
 				h2.songs-info {{song}} -
@@ -21,8 +21,8 @@
 				i.up-icon
 
 			div.comment
-				h3.headline(v-bind:class="{hide: hotCommentShow }") 精彩评论
-				section(v-bind:class="{hide: hotCommentShow }")
+				h3.headline(v-show="hotCommentShow === true") 精彩评论
+				section(v-show="hotCommentShow === true")
 					div.cell-comment( v-for="item in hotComments")
 						div.head-comment
 							img.img-head-comment(v-bind:src="item.userUrl")
@@ -36,8 +36,8 @@
 									span.like-icon
 							div.content-comment {{item.comment}}
 
-				h3.headline(v-bind:class="{hide: commentShow }") 最新评论 {{newCommentsNum}}
-				section(v-bind:class="{hide: commentShow }")
+				h3.headline(v-show="commentShow === true") 最新评论 {{newCommentsNum}}
+				section(v-show="commentShow === true")
 					div.cell-comment( v-for="item in newComments")
 						div.head-comment
 							img.img-head-comment(v-bind:src="item.userUrl")
@@ -51,7 +51,7 @@
 									span.like-icon
 							div.content-comment {{item.comment}}
 
-				div.more-comment(v-bind:class="{hide : commentShow }") 查看全部{{allCommentNum}}评论
+				div.more-comment(v-show="commentShow === true") 查看全部{{allCommentNum}}评论
 
 </template>
 
@@ -75,13 +75,11 @@ export default {
 			newComments: [],//最新评论
 			allCommentNum: '',
 			newCommentsNum: ''
-
 		}
 	},
 	created() {
 		let id = this.$route.params.id;
 		this.songUrl = `http://music.163.com/song/media/outer/url?id=${id}.mp3`
-
 	},
 	mounted () {
 			this.getSongDetail();
@@ -189,9 +187,9 @@ export default {
 						hotComment.time = hotCommentList[i].time;
 						that.hotComments.push(hotComment);
 					}
-				} else {
-					that.hotCommentShow = true;
 				}
+				that.hotCommentShow = true;
+				
 
 				if (commentListCount > 0) {
 					for (let i = 0; i < commentListCount; i++) {
@@ -204,14 +202,17 @@ export default {
 						comment.time = commentList[i].time;
 						that.newComments.push(comment);
 					}
-				} else {
-					that.commentShow = true;
 				}
+				that.commentShow = true;
+				
 			})
 			.catch(function (error) {
 				console.log(JSON.stringify(error));
 			});
 		}
+	},
+	beforeDestroy() {
+		clearInterval(this.setLrcShowStyle);
 	},
 	watch: {
 		isPause: function(val) {
@@ -224,10 +225,12 @@ export default {
 					let that = this;
 					this.setLrcShowStyle = setInterval(function() {
 						for (let i = 0; i < lrcTimeLists.length; i++) {
-							let audio = document.querySelector("#music"),
-								currentTime = audio.currentTime || 0, // 当前时间
+							let audio = document.querySelector("#music");
+							
+							let currentTime = audio.currentTime || 0, // 当前时间
 								ended = audio.ended, // 是否结束
 								showTimeD = lrcTimeLists[i] - currentTime;
+								
 							if (ended) {
 								that.isEnd = true;
 							}
@@ -335,6 +338,8 @@ export default {
     height: auto;
     overflow-x: hidden;
     overflow-y: auto;
+
+	&::-webkit-scrollbar {display:none}
 
 	&::before {
 		content: "";

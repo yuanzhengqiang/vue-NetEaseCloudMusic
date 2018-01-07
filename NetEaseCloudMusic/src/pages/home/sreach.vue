@@ -4,9 +4,9 @@
 			div.input-box-sreach
 				i.icon-sreach
 				input.input-sreach(placeholder='搜索歌曲、歌手、专辑' v-on:input ='getValue' v-model='sreachValue' v-on:keyup.enter="getKeywords")
-				i.icon-clear(v-on:click='clearInput' v-bind:class="{hide: clearBtnShow }")
+				i.icon-clear(v-on:click='clearInput' v-show="clearBtnShow === false")
 
-		div.box-history(v-bind:class="{hide: sreachHistory }")
+		div.box-history(v-show="sreachHistory === false")
 			ul.list-history
 				li.cell-history(v-for="item in sreachHistoryList") 
 					i.icon-history
@@ -14,17 +14,12 @@
 						label.name-sreach(v-on:click='turnSreachRecord(item.name)') {{item.name}}
 						i.icon-close(v-on:click='delCell(item.timestamp, $event)')
 
-		div.box-suggest(v-bind:class="{hide: sreachSuggest }")
+		div.box-suggest(v-show="sreachSuggest === false")
 			h3.need-sreach 搜索“{{allSreachValue}}”
-			//- ul.list-suggest
-			//- 	li.cell-suggest(v-for="item in sreachSuggestList")
-			//- 		i.icon-suggest
-			//- 		div.name-sreach-suggest
-			//- 			label.name-sreach {{item.name}}
 
-		div.box-record(v-bind:class="{hide: sreachRecord }")
-			mt-spinner.middle( type="triple-bounce" v-bind:class="{hide : sreachRecordListShow }")
-			section(v-bind:class="{hide: !sreachRecordListShow }" v-infinite-scroll="getSreachRecordList" infinite-scroll-disabled="loading" infinite-scroll-distance="30")
+		div.box-record(v-show="sreachRecord === false")
+			mt-spinner.middle( type="triple-bounce" v-show="sreachRecordListShow === false")
+			section( v-show="sreachRecordListShow === true" v-infinite-scroll="getSreachRecordList" infinite-scroll-disabled="loading" infinite-scroll-distance="30")
 				div.cell-songs( v-for="item in sreachRecordtList")
 					div.info-songs(v-on:click='turnDetail(item.id)')
 						div.des-song
@@ -106,6 +101,8 @@ export default {
 			this.sreachSuggest = true;
 			this.sreachHistory = true;
 			this.sreachRecord = false;
+			this.sreachValue = val;
+			this.clearBtnShow = false;
 		},
 		/**@augments
 		 *  跳转音乐播放页
