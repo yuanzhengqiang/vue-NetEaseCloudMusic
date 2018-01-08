@@ -472,6 +472,7 @@ export default {
 			flex: 1 1 auto;
 			text-align: center;
 			max-width: 40px;
+			min-width: 40px;
 			font-size: 17px;
 			color: #999;
 		}
