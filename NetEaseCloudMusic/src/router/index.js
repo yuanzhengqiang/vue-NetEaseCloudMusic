@@ -10,39 +10,57 @@ import playListDetail from '@/pages/playListDetail/playListDetail'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: home,
-      children: [
-        {
-          path: '/recommendingMusic',
-          name: 'recommendingMusic',
-          component: recommendingMusic
-        },
-        {
-          path: '/hotSongList',
-          name: 'hotSongList',
-          component: hotSongList
-        },
-        {
-          path: '/sreach',
-          name: 'sreach',
-          component: sreach
-        }
-      ]
-    },
-    {
-      path: '/playMusic&id=:id',
-      name: 'playMusic',
-      component: playMusic
-    },
-    {
-      path: '/playListDetail&id=:id',
-      name: 'playListDetail',
-      component: playListDetail
-    }
-  ]
+	mode: 'history',
+	routes: [
+		{
+		path: '/',
+		name: 'home',
+		component: home,
+		meta: {
+			keepAlive: true
+		},
+			children: [
+				{
+					path: '/recommendingMusic',
+					name: 'recommendingMusic',
+					component: recommendingMusic,
+					meta: {
+						keepAlive: true
+					}
+				},
+				{
+					path: '/hotSongList',
+					name: 'hotSongList',
+					component: hotSongList,
+					meta: {
+						keepAlive: true
+					}
+				},
+				{
+					path: '/sreach',
+					name: 'sreach',
+					component: sreach,
+					meta: {
+						keepAlive: false
+					}
+				}
+			]
+		},
+		{
+			path: '/playMusic&id=:id',
+			name: 'playMusic',
+			component: playMusic,
+			meta: {
+				keepAlive: false
+			}
+		},
+		{
+			path: '/playListDetail&id=:id',
+			name: 'playListDetail',
+			component: playListDetail,
+			meta: {
+				keepAlive: true
+			}
+		}
+	]
 })
