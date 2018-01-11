@@ -484,13 +484,14 @@ export default {
 			display: -webkit-box;
 			display: flex;
 			text-align: left;
+			overflow: hidden;
 
 			.des-song {
 				-webkit-box-flex: 1;
 				flex: 1 1 auto;
 				padding: 6px 0;
 				line-height: 1.5;
-				
+				width: 100%;
 
 				.name-song {
 					display: block;	
@@ -498,6 +499,7 @@ export default {
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					word-break: normal;
+					width: 90%;
 					color: #333;
 					font-size: 17px;
 					font-family: 'Microsoft YaHei';
