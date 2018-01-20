@@ -51,7 +51,7 @@ export default {
 			sreachRecordListPageNum: 0 //搜索页数（当前第几页）
 		}
 	},
-	mounted () {
+	created () {
 		this.getCellHistory('sreachHistory');
 	},
 	methods: {

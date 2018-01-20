@@ -79,12 +79,10 @@ export default {
 	},
 	created() {
 		let id = this.$route.params.id;
-		this.songUrl = `http://music.163.com/song/media/outer/url?id=${id}.mp3`
-	},
-	mounted () {
-			this.getSongDetail();
-			this.getLyricDetail();
-			this.getUserComment();
+		this.songUrl = `http://music.163.com/song/media/outer/url?id=${id}.mp3`;
+		this.getSongDetail();
+		this.getLyricDetail();
+		this.getUserComment();
 	},
 	methods: {
     	returnPage() {
