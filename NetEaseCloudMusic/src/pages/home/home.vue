@@ -52,7 +52,7 @@ export default {
 		active: "1"
 		};
 	},
-  methods: {
+	methods: {
 		downloadAPP() {
 			Toast({
 				message: '未完成',
@@ -60,7 +60,7 @@ export default {
 				duration: 3000
 			});
 		}
-  }
+	}
 };
 </script>
 
@@ -137,5 +137,4 @@ export default {
 	right: 0;
 	height: auto;
 }
-
 </style>
