@@ -46,20 +46,20 @@ Vue.component("hotSongList", hotSongList);
 Vue.component("sreach", sreach);
 
 export default {
-  name: "home",
-  data() {
-    return {
-      active: "1"
-    };
-  },
+	name: "home",
+	data() {
+		return {
+		active: "1"
+		};
+	},
   methods: {
-	  downloadAPP() {
-		Toast({
-			message: '未完成',
-			position: 'middle',
-			duration: 3000
-		});
-	  }
+		downloadAPP() {
+			Toast({
+				message: '未完成',
+				position: 'middle',
+				duration: 3000
+			});
+		}
   }
 };
 </script>
