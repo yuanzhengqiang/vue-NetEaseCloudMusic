@@ -54,11 +54,11 @@ export default {
   },
   methods: {
 	  downloadAPP() {
-			Toast({
-				message: '未完成',
-				position: 'middle',
-				duration: 3000
-			});
+		Toast({
+			message: '未完成',
+			position: 'middle',
+			duration: 3000
+		});
 	  }
   }
 };
